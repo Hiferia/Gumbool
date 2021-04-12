@@ -35,7 +35,7 @@ public class TestRaycast : MonoBehaviour
         {
             inchiostro -= 1;
             scroll = 0;
-            if (inchiostro == 0)
+            if (inchiostro < 0)
             {
                 inchiostro = Inchiostri.Last - 1;
             }
