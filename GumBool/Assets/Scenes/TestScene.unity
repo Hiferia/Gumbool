@@ -277,7 +277,7 @@ MonoBehaviour:
   defaultMatLine: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   PositionSaved: []
   Delay: 0.05
-  inchiostro: 0
+  inchiostro: 1
   ScrollFactor: 3
 --- !u!4 &1400065690
 Transform:
