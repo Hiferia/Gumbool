@@ -11,6 +11,9 @@ public class TestRaycast : MonoBehaviour
     public float Delay;
     public Inchiostri inchiostro;
 
+    Vector2 media;
+    int count = 0;
+
     GameObject OggettoCheSiCrea;
 
     float counter;
@@ -35,7 +38,7 @@ public class TestRaycast : MonoBehaviour
         {
             inchiostro -= 1;
             scroll = 0;
-            if (inchiostro == 0)
+            if (inchiostro < 0)
             {
                 inchiostro = Inchiostri.Last - 1;
             }
@@ -98,6 +101,10 @@ public class TestRaycast : MonoBehaviour
                 {
                     PositionSaved.Add(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
+                    media.x += PositionSaved[PositionSaved.Count - 1].x;
+                    media.y += PositionSaved[PositionSaved.Count - 1].y;
+
+                    count++;
 
                     line.positionCount = PositionSaved.Count;
                     for (int i = 0; i < line.positionCount; i++)
@@ -114,6 +121,10 @@ public class TestRaycast : MonoBehaviour
             if (inchiostro == Inchiostri.Black)
             {
                 //Logiche di creazione collider tramite i punti salvati precedentemente
+                GameObject parentObj = new GameObject();
+                parentObj.transform.position = new Vector3(media.x / count, media.y / count);
+                //OggettoCheSiCrea.transform.position = new Vector3(media.x / count, media.y / count);
+
                 EdgeCollider2D collider = OggettoCheSiCrea.GetComponent<EdgeCollider2D>();
                 Vector2[] arrayPos = new Vector2[PositionSaved.Count];
                 for (int i = 0; i < arrayPos.Length; i++)
@@ -126,7 +137,10 @@ public class TestRaycast : MonoBehaviour
                 {
                     Debug.Log(PositionSaved[i]);
                 }
-                OggettoCheSiCrea.AddComponent<Rigidbody2D>();
+                parentObj.AddComponent<Rigidbody2D>();
+                OggettoCheSiCrea.transform.parent = parentObj.transform;
+                count = 0;
+                media = Vector2.zero;
             }
             if (inchiostro == Inchiostri.Brown)
             {
