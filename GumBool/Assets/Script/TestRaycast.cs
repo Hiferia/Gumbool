@@ -166,6 +166,10 @@ public class TestRaycast : MonoBehaviour
                 OggettoCheSiCrea.AddComponent<Rigidbody2D>();
                 OggettoCheSiCrea.GetComponent<Rigidbody2D>().gravityScale = -2;
             }
+            if (inchiostro == Inchiostri.Orange)
+            {
+
+            }
 
             //reset all list for the new object 
             PositionSaved.Clear();
