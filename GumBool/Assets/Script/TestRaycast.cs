@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Inchiostri { Black, Brown, Cyan, Orange, Last };
+//public enum Inchiostri { Black, Brown, Cyan, Orange, Last };
 
 public class TestRaycast : MonoBehaviour
 {
