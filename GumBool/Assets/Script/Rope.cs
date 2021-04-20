@@ -16,6 +16,7 @@ public struct RopeSegment
 
 public class Rope : MonoBehaviour
 {
+    float strenght;
 
     private LineRenderer lineRenderer;
     public List<RopeSegment> ropeSegments = new List<RopeSegment>();
@@ -23,11 +24,16 @@ public class Rope : MonoBehaviour
     private float ropeSegLen = 0.3f;
     public int segmentLength;
     private float lineWidth = 0.1f;
+    BoxCollider2D box;
 
     // Use this for initialization
     void Start()
     {
         this.lineRenderer = this.GetComponent<LineRenderer>();
+        this.gameObject.AddComponent<BoxCollider2D>();
+        box = this.GetComponent<BoxCollider2D>();
+        box.size = new Vector2(box.size.x * 0.25f, box.size.y * 0.25f);
+
         /*Vector3 ropeStartPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         for (int i = 0; i < segmentLength; i++)
@@ -41,6 +47,15 @@ public class Rope : MonoBehaviour
     void Update()
     {
         this.DrawRope();
+        if(Input.GetKey(KeyCode.G)){
+            strenght += 0.2f;
+            if(strenght >= 2){
+                strenght = 2;
+            }
+        }
+        else{
+            strenght = 1;
+        }
     }
 
     private void FixedUpdate()
@@ -58,9 +73,12 @@ public class Rope : MonoBehaviour
             RopeSegment firstSegment = this.ropeSegments[i];
             Vector2 velocity = firstSegment.posNow - firstSegment.posOld;
             firstSegment.posOld = firstSegment.posNow;
-            firstSegment.posNow += velocity;
+            firstSegment.posNow += velocity * strenght;
             firstSegment.posNow += forceGravity * Time.fixedDeltaTime;
             this.ropeSegments[i] = firstSegment;
+            if(i == this.segmentLength-2){
+                box.offset = this.ropeSegments[i].posNow;
+            }
         }
 
         //CONSTRAINTS
