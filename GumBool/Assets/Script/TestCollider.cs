@@ -105,7 +105,6 @@ public class TestCollider : MonoBehaviour
             if (inchiostro == Inchiostri.Black)
             {
                 //OggettoCheSiCrea.AddComponent<EdgeCollider2D>();
-                OggettoCheSiCrea.AddComponent<PolygonCollider2D>();
                 line.startColor = Color.black;
                 line.endColor = Color.black;
             }
@@ -118,7 +117,6 @@ public class TestCollider : MonoBehaviour
             if (inchiostro == Inchiostri.Cyan)
             {
                 //OggettoCheSiCrea.AddComponent<EdgeCollider2D>();
-                OggettoCheSiCrea.AddComponent<PolygonCollider2D>();
                 line.startColor = Color.cyan;
                 line.endColor = Color.cyan;
             }
@@ -202,92 +200,101 @@ public class TestCollider : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Mouse0) || currentInk < 0)
             {
                 isPressing = false;
-
-                if (inchiostro == Inchiostri.Black)
+                if (PositionSaved.Count > 2)
                 {
-                    //Logiche di creazione collider tramite i punti salvati precedentemente
-                    GameObject parentObj = new GameObject();
-                    parentObj.transform.position = new Vector3(media.x / count, media.y / count);
-                    //OggettoCheSiCrea.transform.position = new Vector3(media.x / count, media.y / count);
+                    if (inchiostro == Inchiostri.Black)
+                    {
 
-                    //EdgeCollider2D collider = OggettoCheSiCrea.GetComponent<EdgeCollider2D>();
-                    PolygonCollider2D collider = OggettoCheSiCrea.GetComponent<PolygonCollider2D>();
-                    Vector2[] arrayPos = new Vector2[PositionSaved.Count * 2];
-                    for (int i = 0; i < arrayPos.Length / 2; i++)
-                    {
-                        //Vector2 offset = new Vector2(-0.101f, -0.101f);
-                        arrayPos[i] = PositionSaved[i];//+offset;
+                        //Logiche di creazione collider tramite i punti salvati precedentemente
+                        GameObject parentObj = new GameObject();
+                        parentObj.transform.position = new Vector3(media.x / count, media.y / count);
+                        //OggettoCheSiCrea.transform.position = new Vector3(media.x / count, media.y / count);
+
+                        //EdgeCollider2D collider = OggettoCheSiCrea.GetComponent<EdgeCollider2D>();
+                        OggettoCheSiCrea.AddComponent<PolygonCollider2D>();
+                        PolygonCollider2D collider = OggettoCheSiCrea.GetComponent<PolygonCollider2D>();
+                        Vector2[] arrayPos = new Vector2[PositionSaved.Count * 2];
+                        for (int i = 0; i < arrayPos.Length / 2; i++)
+                        {
+                            //Vector2 offset = new Vector2(-0.101f, -0.101f);
+                            arrayPos[i] = PositionSaved[i];//+offset;
+                        }
+                        for (int i = arrayPos.Length / 2; i < arrayPos.Length; i++)
+                        {
+                            Vector2 offset = new Vector2(0.01f, 0.01f);
+                            arrayPos[i] = PositionSaved[arrayPos.Length - i - 1] + offset;
+                        }
+                        //collider.points
+                        collider.points = arrayPos;
+                        //collider.edgeRadius = 0.15f;
+                        parentObj.AddComponent<Rigidbody2D>();
+                        parentObj.GetComponent<Rigidbody2D>().mass = mass;
+                        OggettoCheSiCrea.transform.parent = parentObj.transform;
+                        count = 0;
+                        media = Vector2.zero;
                     }
-                    for (int i = arrayPos.Length / 2; i < arrayPos.Length; i++)
+                    if (inchiostro == Inchiostri.Brown)
                     {
-                        Vector2 offset = new Vector2(0.01f, 0.01f);
-                        arrayPos[i] = PositionSaved[arrayPos.Length - i - 1] + offset;
+                        OggettoCheSiCrea.AddComponent<Rope>();
+
+                        Vector3[] arrayPos = new Vector3[PositionSaved.Count];
+                        List<RopeSegment> ropeSegments = new List<RopeSegment>();
+
+                        for (int i = 0; i < arrayPos.Length; i++)
+                        {
+                            arrayPos[i] = PositionSaved[i];
+                            ropeSegments.Add(new RopeSegment(PositionSaved[i]));
+                        }
+
+                        OggettoCheSiCrea.GetComponent<Rope>().ropePositions = arrayPos;
+                        OggettoCheSiCrea.GetComponent<Rope>().segmentLength = arrayPos.Length;
+                        OggettoCheSiCrea.GetComponent<Rope>().ropeSegments = ropeSegments;
+
+
+                        //OggettoCheSiCrea.GetComponent<Rope>().ropeSegments = PositionSaved;
                     }
-                    //collider.points
-                    collider.points = arrayPos;
-                    //collider.edgeRadius = 0.15f;
-                    parentObj.AddComponent<Rigidbody2D>();
-                    parentObj.GetComponent<Rigidbody2D>().mass = mass;
-                    OggettoCheSiCrea.transform.parent = parentObj.transform;
-                    count = 0;
-                    media = Vector2.zero;
+                    if (inchiostro == Inchiostri.Cyan)
+                    {
+                        //Logiche di creazione collider tramite i punti salvati precedentemente
+                        GameObject parentObj = new GameObject();
+                        parentObj.transform.position = new Vector3(media.x / count, media.y / count);
+                        //OggettoCheSiCrea.transform.position = new Vector3(media.x / count, media.y / count);
+
+                        //EdgeCollider2D collider = OggettoCheSiCrea.GetComponent<EdgeCollider2D>();
+                        OggettoCheSiCrea.AddComponent<PolygonCollider2D>();
+                        PolygonCollider2D collider = OggettoCheSiCrea.GetComponent<PolygonCollider2D>();
+                        Vector2[] arrayPos = new Vector2[PositionSaved.Count * 2];
+                        for (int i = 0; i < arrayPos.Length / 2; i++)
+                        {
+                            //Vector2 offset = new Vector2(-0.101f, -0.101f);
+                            arrayPos[i] = PositionSaved[i];//+offset;
+                        }
+                        for (int i = arrayPos.Length / 2; i < arrayPos.Length; i++)
+                        {
+                            Vector2 offset = new Vector2(0.01f, 0.01f);
+                            arrayPos[i] = PositionSaved[arrayPos.Length - i - 1] + offset;
+                        }
+                        //collider.points
+                        collider.points = arrayPos;
+                        //collider.edgeRadius = 0.15f;
+                        parentObj.AddComponent<Rigidbody2D>();
+                        parentObj.GetComponent<Rigidbody2D>().gravityScale = -2;
+                        parentObj.GetComponent<Rigidbody2D>().mass = mass;
+                        OggettoCheSiCrea.transform.parent = parentObj.transform;
+                        count = 0;
+                        media = Vector2.zero;
+                    }
+                    if (inchiostro == Inchiostri.Orange)
+                    {
+
+                    }
+
+                    //reset all list for the new object 
                 }
-                if (inchiostro == Inchiostri.Brown)
+                else
                 {
-                    OggettoCheSiCrea.AddComponent<Rope>();
-
-                    Vector3[] arrayPos = new Vector3[PositionSaved.Count];
-                    List<RopeSegment> ropeSegments = new List<RopeSegment>();
-
-                    for (int i = 0; i < arrayPos.Length; i++)
-                    {
-                        arrayPos[i] = PositionSaved[i];
-                        ropeSegments.Add(new RopeSegment(PositionSaved[i]));
-                    }
-
-                    OggettoCheSiCrea.GetComponent<Rope>().ropePositions = arrayPos;
-                    OggettoCheSiCrea.GetComponent<Rope>().segmentLength = arrayPos.Length;
-                    OggettoCheSiCrea.GetComponent<Rope>().ropeSegments = ropeSegments;
-
-
-                    //OggettoCheSiCrea.GetComponent<Rope>().ropeSegments = PositionSaved;
+                    Destroy(OggettoCheSiCrea);
                 }
-                if (inchiostro == Inchiostri.Cyan)
-                {
-                    //Logiche di creazione collider tramite i punti salvati precedentemente
-                    GameObject parentObj = new GameObject();
-                    parentObj.transform.position = new Vector3(media.x / count, media.y / count);
-                    //OggettoCheSiCrea.transform.position = new Vector3(media.x / count, media.y / count);
-
-                    //EdgeCollider2D collider = OggettoCheSiCrea.GetComponent<EdgeCollider2D>();
-                    PolygonCollider2D collider = OggettoCheSiCrea.GetComponent<PolygonCollider2D>();
-                    Vector2[] arrayPos = new Vector2[PositionSaved.Count * 2];
-                    for (int i = 0; i < arrayPos.Length / 2; i++)
-                    {
-                        //Vector2 offset = new Vector2(-0.101f, -0.101f);
-                        arrayPos[i] = PositionSaved[i];//+offset;
-                    }
-                    for (int i = arrayPos.Length / 2; i < arrayPos.Length; i++)
-                    {
-                        Vector2 offset = new Vector2(0.01f, 0.01f);
-                        arrayPos[i] = PositionSaved[arrayPos.Length - i - 1] + offset;
-                    }
-                    //collider.points
-                    collider.points = arrayPos;
-                    //collider.edgeRadius = 0.15f;
-                    parentObj.AddComponent<Rigidbody2D>();
-                    parentObj.GetComponent<Rigidbody2D>().gravityScale = -2;
-                    parentObj.GetComponent<Rigidbody2D>().mass = mass;
-                    OggettoCheSiCrea.transform.parent = parentObj.transform;
-                    count = 0;
-                    media = Vector2.zero;
-                }
-                if (inchiostro == Inchiostri.Orange)
-                {
-
-                }
-
-                //reset all list for the new object 
                 PositionSaved.Clear();
             }
         }
