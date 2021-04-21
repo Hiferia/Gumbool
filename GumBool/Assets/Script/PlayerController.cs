@@ -10,23 +10,43 @@ public class PlayerController : MonoBehaviour
 
     bool isGrounded = true;
 
+
+    Animator anim;
+    SpriteRenderer spriteRend;
+
     Rigidbody2D body;
 
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
+        spriteRend = GetComponent<SpriteRenderer>();
     }
     // Update is called once per frame
     void Update()
     {
         float HVal = Input.GetAxis(HAxisName) * Speed;
+        anim.SetFloat("speed", HVal);
+        if (HVal < -0.1f)
+        {
+            spriteRend.flipX = true;
+        }
+        else if (HVal > 0.1f)
+        {
+            spriteRend.flipX = false;
+        }
+
+
 
         body.velocity = new Vector2(HVal, body.velocity.y);
         if (isGrounded)
         {
             if (Input.GetKeyDown(KeyCode.Space))
+            {
                 Jump();
+            }
+                
         }
 
     }
@@ -34,6 +54,8 @@ public class PlayerController : MonoBehaviour
     {
 
         body.AddForce(new Vector2(0, JumpForce));
+        anim.SetTrigger("jump");
+
         isGrounded = false;
 
     }
