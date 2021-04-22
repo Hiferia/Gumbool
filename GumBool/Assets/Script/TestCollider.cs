@@ -35,6 +35,8 @@ public class TestCollider : MonoBehaviour
     List<GameObject> OggettiCheHoCreato;
     LineRenderer line;
 
+    public GameObject Player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -246,6 +248,7 @@ public class TestCollider : MonoBehaviour
                             ropeSegments.Add(new RopeSegment(PositionSaved[i]));
                         }
 
+                        OggettoCheSiCrea.GetComponent<Rope>().Player = Player;
                         OggettoCheSiCrea.GetComponent<Rope>().ropePositions = arrayPos;
                         OggettoCheSiCrea.GetComponent<Rope>().segmentLength = arrayPos.Length;
                         OggettoCheSiCrea.GetComponent<Rope>().ropeSegments = ropeSegments;

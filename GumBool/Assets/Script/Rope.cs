@@ -23,6 +23,10 @@ public class Rope : MonoBehaviour
     public Vector3[] ropePositions;
     private float ropeSegLen = 0.3f;
     public int segmentLength;
+    public GameObject Player;
+    public float boxX, boxY;
+    public Vector2 Velocity;
+    bool EPressed;
     private float lineWidth = 0.1f;
     BoxCollider2D box;
 
@@ -31,8 +35,12 @@ public class Rope : MonoBehaviour
     {
         this.lineRenderer = this.GetComponent<LineRenderer>();
         this.gameObject.AddComponent<BoxCollider2D>();
+        boxX = 0.25f;
+        boxY = 0.7f;
         box = this.GetComponent<BoxCollider2D>();
-        box.size = new Vector2(box.size.x * 0.25f, box.size.y * 0.25f);
+        box.size = new Vector2(boxX, boxY);
+        box.isTrigger = true;
+        EPressed = false;
 
         /*Vector3 ropeStartPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -47,13 +55,16 @@ public class Rope : MonoBehaviour
     void Update()
     {
         this.DrawRope();
-        if(Input.GetKey(KeyCode.G)){
+        if (Input.GetKey(KeyCode.G))
+        {
             strenght += 0.2f;
-            if(strenght >= 2){
+            if (strenght >= 2)
+            {
                 strenght = 2;
             }
         }
-        else{
+        else
+        {
             strenght = 1;
         }
     }
@@ -76,8 +87,10 @@ public class Rope : MonoBehaviour
             firstSegment.posNow += velocity * strenght;
             firstSegment.posNow += forceGravity * Time.fixedDeltaTime;
             this.ropeSegments[i] = firstSegment;
-            if(i == this.segmentLength-2){
+            if (i == this.segmentLength - 2)
+            {
                 box.offset = this.ropeSegments[i].posNow;
+                Velocity = velocity;
             }
         }
 
@@ -112,7 +125,7 @@ public class Rope : MonoBehaviour
                 changeDir = (secondSeg.posNow - firstSeg.posNow).normalized;
             }
 
-            Vector2 changeAmount = changeDir * error;
+            Vector2 changeAmount = changeDir * error * 0.5f;
             if (i != 0)
             {
                 firstSeg.posNow -= changeAmount * 0.5f;
@@ -142,5 +155,38 @@ public class Rope : MonoBehaviour
 
         lineRenderer.positionCount = ropePositions.Length;
         lineRenderer.SetPositions(ropePositions);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject == Player)
+        {
+            PlayerController controller = collision.GetComponent<PlayerController>();
+            if (!controller.IsGrounded)
+            {
+                Animator anim = collision.GetComponent<Animator>();
+                Rigidbody2D rigidbody = collision.GetComponent<Rigidbody2D>();
+                if (Input.GetKey(KeyCode.E) && !EPressed)
+                {
+                    controller.enableMove = true;
+                    rigidbody.gravityScale = 1;
+                    Debug.Log(Velocity * 2500);
+                    //rigidbody.AddForce(Velocity * 2500);
+                    //rigidbody.velocity = Velocity * 2500;
+                    anim.SetFloat("speed", 0);
+                    anim.SetTrigger("jump");
+                    EPressed = true;
+                }
+                else if (!Input.GetKey(KeyCode.E))
+                {
+                    EPressed = false;
+                    collision.transform.position = box.offset;
+                    anim.SetFloat("speed", 1);
+                    rigidbody.gravityScale = 0;
+                    controller.enableMove = false;
+                }
+            }
+        }
+        Debug.DrawLine(box.offset, box.offset + (Velocity * 2500), Color.yellow);
     }
 }

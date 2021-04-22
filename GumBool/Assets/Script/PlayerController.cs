@@ -8,8 +8,9 @@ public class PlayerController : MonoBehaviour
     public string HAxisName = "Horizontal";
     public float JumpForce;
 
+    public bool enableMove;
+    public bool IsGrounded { get { return isGrounded; } }
     bool isGrounded = true;
-
 
     Animator anim;
     SpriteRenderer spriteRend;
@@ -26,27 +27,34 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float HVal = Input.GetAxis(HAxisName) * Speed;
-        anim.SetFloat("speed", HVal);
-        if (HVal < -0.1f)
+        if (enableMove)
         {
-            spriteRend.flipX = true;
-        }
-        else if (HVal > 0.1f)
-        {
-            spriteRend.flipX = false;
-        }
-
-
-
-        body.velocity = new Vector2(HVal, body.velocity.y);
-        if (isGrounded)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
+            float HVal = Input.GetAxis(HAxisName) * Speed;
+            anim.SetFloat("speed", HVal);
+            if (HVal < -0.1f)
             {
-                Jump();
+                spriteRend.flipX = true;
             }
-                
+            else if (HVal > 0.1f)
+            {
+                spriteRend.flipX = false;
+            }
+
+
+
+            body.velocity = new Vector2(HVal, body.velocity.y);
+            if (isGrounded)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    Jump();
+                }
+            }
+            else
+            {
+                anim.SetFloat("speed", 0);
+                anim.SetTrigger("jump");
+            }
         }
 
     }
@@ -54,6 +62,7 @@ public class PlayerController : MonoBehaviour
     {
 
         body.AddForce(new Vector2(0, JumpForce));
+        anim.SetFloat("speed", 0);
         anim.SetTrigger("jump");
 
         isGrounded = false;
