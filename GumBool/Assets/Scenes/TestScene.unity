@@ -304,6 +304,10 @@ PrefabInstance:
       propertyPath: enableMove
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4137652777116182071, guid: 60ca132b5bf89a24a8ea4a1b495a5af5, type: 3}
+      propertyPath: HorizontalMaxSpeed
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60ca132b5bf89a24a8ea4a1b495a5af5, type: 3}
 --- !u!1 &1071046977
@@ -491,7 +495,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultMatLine: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   PositionSaved: []
-  Delay: 0.05
+  Delay: 0.001
   inchiostro: 1
   Black: 0
   Brown: 0

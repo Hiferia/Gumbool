@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float Speed = 1;
     public string HAxisName = "Horizontal";
     public float JumpForce;
+    public float HorizontalMaxSpeed;
 
     public bool enableMove;
     public bool IsGrounded { get { return isGrounded; } }
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         spriteRend = GetComponent<SpriteRenderer>();
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -40,9 +42,41 @@ public class PlayerController : MonoBehaviour
                 spriteRend.flipX = false;
             }
 
+            float Hspeed;
 
+            if (!isGrounded)
+            {
+                if (body.velocity.x <= HorizontalMaxSpeed && body.velocity.x >= -HorizontalMaxSpeed)
+                {
+                    Hspeed = body.velocity.x + HVal;
+                    if (Hspeed > HorizontalMaxSpeed)
+                    {
+                        Hspeed = HorizontalMaxSpeed;
+                    }
+                    if (Hspeed < -HorizontalMaxSpeed)
+                    {
+                        Hspeed = -HorizontalMaxSpeed;
+                    }
+                }
+                else
+                {
+                    Hspeed = body.velocity.x + HVal;
+                    if (Hspeed > HorizontalMaxSpeed * 3)
+                    {
+                        Hspeed = HorizontalMaxSpeed * 3;
+                    }
+                    if (Hspeed < -HorizontalMaxSpeed * 3)
+                    {
+                        Hspeed = -HorizontalMaxSpeed * 3;
+                    }
+                }
+            }
+            else
+            {
+                Hspeed = HVal;
+            }
 
-            body.velocity = new Vector2(HVal, body.velocity.y);
+            body.velocity = new Vector2(Hspeed, body.velocity.y);
             if (isGrounded)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
@@ -60,7 +94,6 @@ public class PlayerController : MonoBehaviour
     }
     void Jump()
     {
-
         body.AddForce(new Vector2(0, JumpForce));
         anim.SetFloat("speed", 0);
         anim.SetTrigger("jump");

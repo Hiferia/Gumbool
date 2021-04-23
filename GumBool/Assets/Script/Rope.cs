@@ -26,6 +26,7 @@ public class Rope : MonoBehaviour
     public GameObject Player;
     public float boxX, boxY;
     public Vector2 Velocity;
+    public float JumpForce;
     bool EPressed;
     private float lineWidth = 0.1f;
     BoxCollider2D box;
@@ -33,6 +34,7 @@ public class Rope : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        JumpForce = 5f;
         this.lineRenderer = this.GetComponent<LineRenderer>();
         this.gameObject.AddComponent<BoxCollider2D>();
         boxX = 0.25f;
@@ -162,17 +164,20 @@ public class Rope : MonoBehaviour
         if (collision.gameObject == Player)
         {
             PlayerController controller = collision.GetComponent<PlayerController>();
-            if (!controller.IsGrounded)
-            {
+            //if (!controller.IsGrounded)
+            //{
                 Animator anim = collision.GetComponent<Animator>();
                 Rigidbody2D rigidbody = collision.GetComponent<Rigidbody2D>();
                 if (Input.GetKey(KeyCode.E) && !EPressed)
                 {
                     controller.enableMove = true;
                     rigidbody.gravityScale = 1;
-                    Debug.Log(Velocity * 2500);
-                    //rigidbody.AddForce(Velocity * 2500);
-                    //rigidbody.velocity = Velocity * 2500;
+                    //Debug.Log(Velocity.normalized * JumpForce);
+                    Debug.Log(rigidbody.velocity);
+                    //rigidbody.AddForce(Velocity.normalized * JumpForce);
+                    rigidbody.velocity = new Vector2(Velocity.normalized.x * JumpForce, Velocity.normalized.y * JumpForce);
+                    Debug.Log(rigidbody.velocity);
+
                     anim.SetFloat("speed", 0);
                     anim.SetTrigger("jump");
                     EPressed = true;
@@ -185,8 +190,8 @@ public class Rope : MonoBehaviour
                     rigidbody.gravityScale = 0;
                     controller.enableMove = false;
                 }
-            }
+            //}
         }
-        Debug.DrawLine(box.offset, box.offset + (Velocity * 2500), Color.yellow);
+        Debug.DrawLine(box.offset, box.offset + (Velocity.normalized * JumpForce), Color.yellow);
     }
 }
