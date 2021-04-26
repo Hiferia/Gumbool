@@ -276,11 +276,13 @@ public class TestCollider : MonoBehaviour
                             arrayPos[i] = PositionSaved[i];
                             ropeSegments.Add(new RopeSegment(PositionSaved[i]));
                         }
-
+                        OggettoCheSiCrea.tag = "BrownInk";
                         OggettoCheSiCrea.GetComponent<Rope>().Player = Player;
                         OggettoCheSiCrea.GetComponent<Rope>().ropePositions = arrayPos;
                         OggettoCheSiCrea.GetComponent<Rope>().segmentLength = arrayPos.Length;
                         OggettoCheSiCrea.GetComponent<Rope>().ropeSegments = ropeSegments;
+                        OggettoCheSiCrea.GetComponent<Rope>().Mass = mass;
+
 
 
                         //OggettoCheSiCrea.GetComponent<Rope>().ropeSegments = PositionSaved;
@@ -291,6 +293,7 @@ public class TestCollider : MonoBehaviour
                         GameObject parentObj = new GameObject();
                         parentObj.transform.position = new Vector3(media.x / count, media.y / count);
                         //OggettoCheSiCrea.transform.position = new Vector3(media.x / count, media.y / count);
+                        parentObj.tag = "CyanInk";
 
                         //EdgeCollider2D collider = OggettoCheSiCrea.GetComponent<EdgeCollider2D>();
                         OggettoCheSiCrea.AddComponent<PolygonCollider2D>();

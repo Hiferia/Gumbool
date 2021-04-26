@@ -18,6 +18,8 @@ public class Rope : MonoBehaviour
 {
     float strenght;
 
+    public float Mass;
+
     private LineRenderer lineRenderer;
     public List<RopeSegment> ropeSegments = new List<RopeSegment>();
     public Vector3[] ropePositions;

@@ -17,7 +17,7 @@ public class colliderTest : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("LA LINEA MI TOCCAH");
+
 
     }
    
