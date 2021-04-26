@@ -6,6 +6,7 @@ TagManager:
   tags:
   - BlackInk
   - CyanInk
+  - player
   layers:
   - Default
   - TransparentFX

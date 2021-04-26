@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float HorizontalMaxSpeed;
 
     public bool enableMove;
+    public bool Sliding = false;
     public bool IsGrounded { get { return isGrounded; } }
     bool isGrounded = true;
 
@@ -29,6 +30,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Sliding)
+        {
+            body.AddForce(new Vector2(0, -5));
+            
+        }
         if (enableMove)
         {
             float HVal = Input.GetAxis(HAxisName) * Speed;
