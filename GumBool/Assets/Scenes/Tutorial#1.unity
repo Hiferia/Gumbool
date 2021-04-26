@@ -3250,6 +3250,7 @@ GameObject:
   - component: {fileID: 1587446633}
   - component: {fileID: 1587446634}
   - component: {fileID: 1587446635}
+  - component: {fileID: 1587446636}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -3616,16 +3617,47 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 14.058417, y: -4.9722323}
+    - - {x: 14.175032, y: -4.9430785}
       - {x: 9.381331, y: -0.21516728}
       - {x: 9.262515, y: -0.09429431}
       - {x: 9.190406, y: -1.2520503}
-      - {x: 9.147175, y: -3.318193}
+      - {x: 9.014487, y: -3.3750594}
       - {x: 9.858303, y: -4.1138883}
       - {x: 10.751293, y: -4.724613}
       - {x: 12.166923, y: -5.505421}
       - {x: 12.868189, y: -5.984336}
-      - {x: 13.656101, y: -6.822713}
+      - {x: 13.539487, y: -6.808136}
+--- !u!60 &1587446636
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587446629}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 21.219633, y: 1.9549619}
+      - {x: 20.532803, y: 4.8266926}
+      - {x: 16.74866, y: 0.99891233}
+      - {x: 18.21098, y: -1.619154}
+      - {x: 19.999008, y: 0.6181469}
+      - {x: 20.748074, y: 1.4172044}
 --- !u!114 &1617620610 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7092101920153130750, guid: 6440153f3ae27984a94a747bbe0392f1, type: 3}
