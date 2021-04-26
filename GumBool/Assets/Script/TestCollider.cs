@@ -45,8 +45,28 @@ public class TestCollider : MonoBehaviour
         Brown = 100;
         Cyan = 100;
         Orange = 100;
+        UIInkMng.OnRecharge.AddListener(OnRechargeInkAmount);
     }
-
+    void OnRechargeInkAmount(Inchiostri ink, float amount)
+    {
+        switch (ink)
+        {
+            case Inchiostri.Black:
+                Black += amount;
+                break;
+            case Inchiostri.Brown:
+                Brown += amount;
+                break;
+            case Inchiostri.Cyan:
+                Cyan += amount;
+                break;
+            case Inchiostri.Orange:
+                Orange += amount;
+                break;
+            default:
+                break;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -222,6 +242,7 @@ public class TestCollider : MonoBehaviour
 
                         //EdgeCollider2D collider = OggettoCheSiCrea.GetComponent<EdgeCollider2D>();
                         OggettoCheSiCrea.AddComponent<PolygonCollider2D>();
+                        parentObj.tag = "BlackInk";
                         PolygonCollider2D collider = OggettoCheSiCrea.GetComponent<PolygonCollider2D>();
                         Vector2[] arrayPos = new Vector2[PositionSaved.Count * 2];
                         for (int i = 0; i < arrayPos.Length / 2; i++)
@@ -297,7 +318,36 @@ public class TestCollider : MonoBehaviour
                     }
                     if (inchiostro == Inchiostri.Orange)
                     {
+                        //Logiche di creazione collider tramite i punti salvati precedentemente
+                        GameObject parentObj = new GameObject();
+                        parentObj.transform.position = new Vector3(media.x / count, media.y / count);
+                        //OggettoCheSiCrea.transform.position = new Vector3(media.x / count, media.y / count);
 
+                        //EdgeCollider2D collider = OggettoCheSiCrea.GetComponent<EdgeCollider2D>();
+                        OggettoCheSiCrea.AddComponent<PolygonCollider2D>();
+                        PolygonCollider2D collider = OggettoCheSiCrea.GetComponent<PolygonCollider2D>();
+                        Vector2[] arrayPos = new Vector2[PositionSaved.Count * 2];
+                        for (int i = 0; i < arrayPos.Length / 2; i++)
+                        {
+                            //Vector2 offset = new Vector2(-0.101f, -0.101f);
+                            arrayPos[i] = PositionSaved[i];//+offset;
+                        }
+                        for (int i = arrayPos.Length / 2; i < arrayPos.Length; i++)
+                        {
+                            Vector2 offset = new Vector2(0.01f, 0.01f);
+                            arrayPos[i] = PositionSaved[arrayPos.Length - i - 1] + offset;
+                        }
+                        //collider.points
+                        collider.points = arrayPos;
+                        //collider.edgeRadius = 0.15f;
+                        parentObj.AddComponent<Rigidbody2D>();
+                        parentObj.GetComponent<Rigidbody2D>().mass = mass;
+                        parentObj.GetComponent<Rigidbody2D>().gravityScale = 0;
+                        OggettoCheSiCrea.AddComponent<OrangeInkScript>();
+
+                        OggettoCheSiCrea.transform.parent = parentObj.transform;
+                        count = 0;
+                        media = Vector2.zero;
                     }
 
                     //reset all list for the new object 
