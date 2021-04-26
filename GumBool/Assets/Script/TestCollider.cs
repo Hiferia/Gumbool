@@ -73,15 +73,19 @@ public class TestCollider : MonoBehaviour
         switch (inchiostro)
         {
             case Inchiostri.Black:
+                UIInkMng.OnChangeInk.Invoke(Inchiostri.Black);
                 currentInk = Black;
                 break;
             case Inchiostri.Brown:
+                UIInkMng.OnChangeInk.Invoke(Inchiostri.Brown);
                 currentInk = Brown;
                 break;
             case Inchiostri.Cyan:
+                UIInkMng.OnChangeInk.Invoke(Inchiostri.Cyan);
                 currentInk = Cyan;
                 break;
             case Inchiostri.Orange:
+                UIInkMng.OnChangeInk.Invoke(Inchiostri.Orange);
                 currentInk = Orange;
                 break;
             default:
@@ -164,18 +168,22 @@ public class TestCollider : MonoBehaviour
                     {
                         case Inchiostri.Black:
                             Black -= distance * BlackMul;
+                            UIInkMng.OnDraw.Invoke(Inchiostri.Black, Black);
                             currentInk = Black;
                             break;
                         case Inchiostri.Brown:
                             Brown -= distance * BrownMul;
+                            UIInkMng.OnDraw.Invoke(Inchiostri.Brown, Brown);
                             currentInk = Brown;
                             break;
                         case Inchiostri.Cyan:
                             Cyan -= distance * CyanMul;
+                            UIInkMng.OnDraw.Invoke(Inchiostri.Cyan, Cyan);
                             currentInk = Cyan;
                             break;
                         case Inchiostri.Orange:
                             Orange -= distance * OrangeMul;
+                            UIInkMng.OnDraw.Invoke(Inchiostri.Orange, Orange);
                             currentInk = Orange;
                             break;
                         default:

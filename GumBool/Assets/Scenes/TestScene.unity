@@ -591,6 +591,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0eb2fe4c857946418db45b934a3f51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InkSelectedFrames:
+  - {fileID: 2007957771}
+  - {fileID: 1335288813}
+  - {fileID: 622167790}
+  - {fileID: 1227473421}
+  InkContainers:
+  - {fileID: 171601429}
+  - {fileID: 811274671}
+  - {fileID: 1253787589}
+  - {fileID: 1576798608}
 --- !u!4 &601594257
 Transform:
   m_ObjectHideFlags: 0
@@ -1838,7 +1848,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2007957772
 RectTransform:
   m_ObjectHideFlags: 0
