@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OrangeInkScript : MonoBehaviour
 {
+    
     void OnCollisionEnter2D(Collision2D collider)
     {
         Debug.Log("COLLISIONE");
@@ -11,13 +12,17 @@ public class OrangeInkScript : MonoBehaviour
         //usiamo i tag
         switch (collider.transform.tag)
         {
+            
             case "BlackInk":
-                if(transform.parent.GetComponent<Rigidbody2D>().mass > collider.transform.GetComponent<Rigidbody2D>().mass * 0.5f)
+                if (collider.transform.GetComponent<UnderWaterLogic>().canBeDeleted)
                 {
-                    Debug.Log("IF");
-                    UIInkMng.OnRecharge.Invoke(Inchiostri.Black, collider.transform.GetComponent<Rigidbody2D>().mass * 0.5f);
-                    Destroy(collider.gameObject);
-                    Destroy(transform.gameObject);
+                    if (transform.parent.GetComponent<Rigidbody2D>().mass > collider.transform.GetComponent<Rigidbody2D>().mass * 0.5f)
+                    {
+                        Debug.Log("IF");
+                        UIInkMng.OnRecharge.Invoke(Inchiostri.Black, collider.transform.GetComponent<Rigidbody2D>().mass * 0.5f);
+                        Destroy(collider.gameObject);
+                        Destroy(transform.gameObject);
+                    }
                 }
                 else
                 {

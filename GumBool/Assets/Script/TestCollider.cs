@@ -263,6 +263,7 @@ public class TestCollider : MonoBehaviour
                         OggettoCheSiCrea.transform.parent = parentObj.transform;
                         count = 0;
                         media = Vector2.zero;
+                        parentObj.AddComponent<UnderWaterLogic>();
                     }
                     if (inchiostro == Inchiostri.Brown)
                     {
@@ -284,7 +285,7 @@ public class TestCollider : MonoBehaviour
                         OggettoCheSiCrea.GetComponent<Rope>().Mass = mass;
 
 
-
+                      
                         //OggettoCheSiCrea.GetComponent<Rope>().ropeSegments = PositionSaved;
                     }
                     if (inchiostro == Inchiostri.Cyan)
@@ -318,6 +319,7 @@ public class TestCollider : MonoBehaviour
                         OggettoCheSiCrea.transform.parent = parentObj.transform;
                         count = 0;
                         media = Vector2.zero;
+                        parentObj.AddComponent<UnderWaterLogic>();
                     }
                     if (inchiostro == Inchiostri.Orange)
                     {
@@ -351,6 +353,7 @@ public class TestCollider : MonoBehaviour
                         OggettoCheSiCrea.transform.parent = parentObj.transform;
                         count = 0;
                         media = Vector2.zero;
+                        parentObj.AddComponent<UnderWaterLogic>();
                     }
 
                     //reset all list for the new object 
