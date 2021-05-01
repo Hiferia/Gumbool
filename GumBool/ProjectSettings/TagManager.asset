@@ -9,6 +9,7 @@ TagManager:
   - player
   - Enviroment
   - Water
+  - BrownInk
   layers:
   - Default
   - TransparentFX

@@ -61,15 +61,15 @@ public class Rope : MonoBehaviour
         this.DrawRope();
         if (Input.GetKey(KeyCode.G))
         {
-            strenght += 0.2f;
-            if (strenght >= 2)
+            strenght += 0.5f * Time.deltaTime;
+            if (strenght >= 1.09f) //1.095 comincia già a farla girare tenendo premuto
             {
-                strenght = 2;
+                strenght = 1.09f;
             }
         }
         else
         {
-            strenght = 1;
+            strenght = 1f;
         }
     }
 
@@ -89,6 +89,11 @@ public class Rope : MonoBehaviour
             Vector2 velocity = firstSegment.posNow - firstSegment.posOld;
             firstSegment.posOld = firstSegment.posNow;
             firstSegment.posNow += velocity * strenght;
+            if(velocity.x == 0 && strenght > 0)
+            {
+                velocity.x += 10f;
+                velocity.y += 10f;
+            }
             firstSegment.posNow += forceGravity * Time.fixedDeltaTime;
             this.ropeSegments[i] = firstSegment;
             if (i == this.segmentLength - 2)
@@ -194,6 +199,14 @@ public class Rope : MonoBehaviour
                 }
             //}
         }
+        else if(collision.tag == "BlackInk")
+        {
+            Rigidbody2D rigidbody = collision.transform.parent.GetComponent<Rigidbody2D>();
+
+            collision.transform.parent.position = box.offset;
+            rigidbody.gravityScale = 0;
+        }
         Debug.DrawLine(box.offset, box.offset + (Velocity.normalized * JumpForce), Color.yellow);
     }
+    
 }

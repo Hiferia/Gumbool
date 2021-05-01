@@ -242,6 +242,7 @@ public class TestCollider : MonoBehaviour
 
                         //EdgeCollider2D collider = OggettoCheSiCrea.GetComponent<EdgeCollider2D>();
                         OggettoCheSiCrea.AddComponent<PolygonCollider2D>();
+                        OggettoCheSiCrea.tag = "BlackInk";
                         parentObj.tag = "BlackInk";
                         PolygonCollider2D collider = OggettoCheSiCrea.GetComponent<PolygonCollider2D>();
                         Vector2[] arrayPos = new Vector2[PositionSaved.Count * 2];
