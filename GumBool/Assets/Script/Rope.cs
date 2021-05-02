@@ -30,7 +30,7 @@ public class Rope : MonoBehaviour
     public Vector2 Velocity;
     public float JumpForce;
     bool EPressed;
-    private float lineWidth = 0.1f;
+    private float lineWidth = 0.3f;
     BoxCollider2D box;
 
     // Use this for initialization
