@@ -53,10 +53,10 @@ public class TestCollider : MonoBehaviour
         }
         else
         {
-            Black = 100;
-            Brown = 100;
-            Cyan = 100;
-            Orange = 100;
+              Black = 100;
+        Brown = 100;
+        Cyan = 100;
+        Orange = 100;
         }
 
         UIInkMng.OnRecharge.AddListener(OnRechargeInkAmount);
