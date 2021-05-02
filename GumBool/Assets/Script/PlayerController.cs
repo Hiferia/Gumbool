@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     Jump();
+                    anim.SetBool("Jumping", true);
                 }
             }
             else
@@ -95,6 +96,20 @@ public class PlayerController : MonoBehaviour
                 anim.SetFloat("speed", 0);
                 anim.SetTrigger("jump");
             }
+
+            if(anim.GetBool("Jumping"))
+            {
+                if (body.velocity.y > 0)
+                {
+                    anim.speed = 0;
+                    
+                }
+                else if (body.velocity.y <0)
+                {
+                    anim.speed = 1;
+                }
+            }
+            Debug.Log(body.velocity.y);
         }
 
     }
@@ -110,6 +125,8 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         isGrounded = true;
+        anim.SetBool("Jumping", false);
+        
     }
 
 }
