@@ -38,6 +38,8 @@ public class TestCollider : MonoBehaviour
 
     public GameObject Player;
 
+    public float Distance;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +58,7 @@ public class TestCollider : MonoBehaviour
             Cyan = 100;
             Orange = 100;
         }
-      
+
         UIInkMng.OnRecharge.AddListener(OnRechargeInkAmount);
         UIInkMng.OnActiveInk.AddListener(OnActiveInkCallBack);
     }
@@ -192,65 +194,68 @@ public class TestCollider : MonoBehaviour
             counter += Time.deltaTime;
             if (counter >= Delay)
             {
-                //TODO -> CHECK IF THE POSITION IS NOT THE SAME OF THE PREVIOUS ONE (se il player sta muovendo il mouse)
-                if (PositionSaved.Count < 2)
+                if (Vector2.Distance(Camera.main.ScreenToWorldPoint(Input.mousePosition), Player.transform.position) < Distance)
                 {
-                    PositionSaved.Add(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-
-                    media.x += PositionSaved[PositionSaved.Count - 1].x;
-                    media.y += PositionSaved[PositionSaved.Count - 1].y;
-
-                    count++;
-
-                    line.positionCount = PositionSaved.Count;
-                    for (int i = 0; i < line.positionCount; i++)
+                    //TODO -> CHECK IF THE POSITION IS NOT THE SAME OF THE PREVIOUS ONE (se il player sta muovendo il mouse)
+                    if (PositionSaved.Count < 2)
                     {
-                        line.SetPosition(i, PositionSaved[i]);
+                        PositionSaved.Add(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+
+                        media.x += PositionSaved[PositionSaved.Count - 1].x;
+                        media.y += PositionSaved[PositionSaved.Count - 1].y;
+
+                        count++;
+
+                        line.positionCount = PositionSaved.Count;
+                        for (int i = 0; i < line.positionCount; i++)
+                        {
+                            line.SetPosition(i, PositionSaved[i]);
+                        }
                     }
-                }
-                else if (Vector2.Distance(Camera.main.ScreenToWorldPoint(Input.mousePosition), PositionSaved[PositionSaved.Count - 1]) > 0.3f)
-                {
-                    float distance = Vector2.Distance(Camera.main.ScreenToWorldPoint(Input.mousePosition), PositionSaved[PositionSaved.Count - 1]);
-
-                    PositionSaved.Add(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-
-                    media.x += PositionSaved[PositionSaved.Count - 1].x;
-                    media.y += PositionSaved[PositionSaved.Count - 1].y;
-
-                    switch (inchiostro)
+                    else if (Vector2.Distance(Camera.main.ScreenToWorldPoint(Input.mousePosition), PositionSaved[PositionSaved.Count - 1]) > 0.3f)
                     {
-                        case Inchiostri.Black:
-                            Black -= distance * BlackMul;
-                            UIInkMng.OnDraw.Invoke(Inchiostri.Black, Black);
-                            currentInk = Black;
-                            break;
-                        case Inchiostri.Brown:
-                            Brown -= distance * BrownMul;
-                            UIInkMng.OnDraw.Invoke(Inchiostri.Brown, Brown);
-                            currentInk = Brown;
-                            break;
-                        case Inchiostri.Cyan:
-                            Cyan -= distance * CyanMul;
-                            UIInkMng.OnDraw.Invoke(Inchiostri.Cyan, Cyan);
-                            currentInk = Cyan;
-                            break;
-                        case Inchiostri.Orange:
-                            Orange -= distance * OrangeMul;
-                            UIInkMng.OnDraw.Invoke(Inchiostri.Orange, Orange);
-                            currentInk = Orange;
-                            break;
-                        default:
-                            break;
-                    }
+                        float distance = Vector2.Distance(Camera.main.ScreenToWorldPoint(Input.mousePosition), PositionSaved[PositionSaved.Count - 1]);
 
-                    mass += distance * massMul;
+                        PositionSaved.Add(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
-                    count++;
+                        media.x += PositionSaved[PositionSaved.Count - 1].x;
+                        media.y += PositionSaved[PositionSaved.Count - 1].y;
 
-                    line.positionCount = PositionSaved.Count;
-                    for (int i = 0; i < line.positionCount; i++)
-                    {
-                        line.SetPosition(i, PositionSaved[i]);
+                        switch (inchiostro)
+                        {
+                            case Inchiostri.Black:
+                                Black -= distance * BlackMul;
+                                UIInkMng.OnDraw.Invoke(Inchiostri.Black, Black);
+                                currentInk = Black;
+                                break;
+                            case Inchiostri.Brown:
+                                Brown -= distance * BrownMul;
+                                UIInkMng.OnDraw.Invoke(Inchiostri.Brown, Brown);
+                                currentInk = Brown;
+                                break;
+                            case Inchiostri.Cyan:
+                                Cyan -= distance * CyanMul;
+                                UIInkMng.OnDraw.Invoke(Inchiostri.Cyan, Cyan);
+                                currentInk = Cyan;
+                                break;
+                            case Inchiostri.Orange:
+                                Orange -= distance * OrangeMul;
+                                UIInkMng.OnDraw.Invoke(Inchiostri.Orange, Orange);
+                                currentInk = Orange;
+                                break;
+                            default:
+                                break;
+                        }
+
+                        mass += distance * massMul;
+
+                        count++;
+
+                        line.positionCount = PositionSaved.Count;
+                        for (int i = 0; i < line.positionCount; i++)
+                        {
+                            line.SetPosition(i, PositionSaved[i]);
+                        }
                     }
                 }
 
@@ -260,7 +265,7 @@ public class TestCollider : MonoBehaviour
 
         if (isPressing)
         {
-            if (Input.GetKeyUp(KeyCode.Mouse0) || currentInk < 0)
+            if (Input.GetKeyUp(KeyCode.Mouse0) || currentInk < 0 || Vector2.Distance(Camera.main.ScreenToWorldPoint(Input.mousePosition), Player.transform.position) > Distance)
             {
                 isPressing = false;
                 if (PositionSaved.Count > 2)
@@ -319,7 +324,7 @@ public class TestCollider : MonoBehaviour
                         OggettoCheSiCrea.GetComponent<Rope>().Mass = mass;
 
 
-                      
+
                         //OggettoCheSiCrea.GetComponent<Rope>().ropeSegments = PositionSaved;
                     }
                     if (inchiostro == Inchiostri.Cyan)
