@@ -46,7 +46,7 @@ MonoBehaviour:
   defaultMatLine: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   PositionSaved: []
   Delay: 0
-  inchiostro: 0
+  inchiostro: 3
   Black: 0
   Brown: 0
   Cyan: 0
