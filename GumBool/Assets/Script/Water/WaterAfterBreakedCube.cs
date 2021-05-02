@@ -6,7 +6,7 @@ public class WaterAfterBreakedCube : MonoBehaviour
 {
     public Transform WaterToDestroy;
     public Transform WaterToCreate;
-    bool AlreadyTriggered;
+    public bool AlreadyTriggered;
 
 
     // Start is called before the first frame update
@@ -22,15 +22,6 @@ public class WaterAfterBreakedCube : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!AlreadyTriggered)
-        {
-            if (!WaterToDestroy.GetComponent<RemoveWater>().AlreadyActivated)
-            {
-                WaterToDestroy.GetComponent<RemoveWater>().StartRemove = true;
-                WaterToCreate.GetComponent<FillingWater>().StartFillingWater = true;
-            }
-            
-
-        }
+        
     }
 }
