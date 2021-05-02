@@ -41,11 +41,32 @@ public class TestCollider : MonoBehaviour
     void Start()
     {
         PositionSaved = new List<Vector2>();
-        Black = 100;
-        Brown = 100;
-        Cyan = 100;
-        Orange = 100;
+        Black = 0;
+        Brown = 0;
+        Cyan = 0;
+        Orange = 0;
         UIInkMng.OnRecharge.AddListener(OnRechargeInkAmount);
+        UIInkMng.OnActiveInk.AddListener(OnActiveInkCallBack);
+    }
+    void OnActiveInkCallBack(string pencilInk)
+    {
+        switch (pencilInk)
+        {
+            case "BlackPencil":
+                Black = 100;
+                break;
+            case "BrownPencil":
+                Brown = 100;
+                break;
+            case "CyanPencil":
+                Cyan = 100;
+                break;
+            case "OrangePencil":
+                Orange = 100;
+                break;
+            default:
+                break;
+        }
     }
     void OnRechargeInkAmount(Inchiostri ink, float amount)
     {

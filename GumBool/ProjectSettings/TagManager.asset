@@ -10,6 +10,10 @@ TagManager:
   - Enviroment
   - Water
   - BrownInk
+  - OrangePencil
+  - BlackPencil
+  - BrownPencil
+  - CyanPencil
   layers:
   - Default
   - TransparentFX

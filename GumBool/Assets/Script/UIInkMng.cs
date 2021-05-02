@@ -9,15 +9,46 @@ public class UIInkMng : MonoBehaviour
     public static UnityEvent<Inchiostri> OnChangeInk;
     public static UnityEvent<Inchiostri, float> OnDraw;
     public static UnityEvent<Inchiostri, float> OnRecharge;
+    public static UnityEvent<string> OnActiveInk;
     public List<GameObject> InkSelectedFrames;
     public List<Image> InkContainers;
     void OnEnable(){
         OnChangeInk = new UnityEvent<Inchiostri>();
         OnDraw = new UnityEvent<Inchiostri, float>();
         OnRecharge = new UnityEvent<Inchiostri, float>();
+        OnActiveInk = new UnityEvent<string>();
         OnChangeInk.AddListener(OnChangeInkCallBack);
         OnDraw.AddListener(OnDrawCallBack);
         OnRecharge.AddListener(OnRechargeCallBack);
+        OnActiveInk.AddListener(OnActiveInkCallBack);
+       
+    }
+    //private void Start()
+    //{
+    //    for (int i = 0; i < InkContainers.Count; i++)
+    //    {
+    //        InkContainers[i].color -= new Color(0, 0, 0, 0.5f);
+    //    }
+    //}
+    void OnActiveInkCallBack(string pencilInk)
+    {
+        switch (pencilInk)
+        {
+            case "BlackPencil":
+                InkContainers[0].fillAmount = 1;
+                break;
+            case "BrownPencil":
+                InkContainers[1].fillAmount = 1;
+                break;
+            case "CyanPencil":
+                InkContainers[2].fillAmount = 1;
+                break;
+            case "OrangePencil":
+                InkContainers[3].fillAmount = 1;
+                break;
+            default:
+                break;
+        }
     }
     void OnRechargeCallBack(Inchiostri ink, float amount)
     {
