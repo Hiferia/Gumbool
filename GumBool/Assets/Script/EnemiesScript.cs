@@ -34,7 +34,7 @@ public class EnemiesScript : MonoBehaviour
             case "CyanInk":
                     Destroy(collider.gameObject);
                 break;
-            case "Player":
+            case "player":
 
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
              

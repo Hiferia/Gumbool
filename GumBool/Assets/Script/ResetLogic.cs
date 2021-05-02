@@ -16,7 +16,7 @@ public class ResetLogic : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene("Tutorial#1");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

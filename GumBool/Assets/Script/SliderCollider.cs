@@ -17,15 +17,22 @@ public class SliderCollider : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
-        collider.GetComponent<PlayerController>().enableMove = false;
-        collider.GetComponent<PlayerController>().Sliding = true;
+        if (collider.gameObject.tag == "player")
+        {
+            collider.GetComponent<PlayerController>().enableMove = false;
+            collider.GetComponent<PlayerController>().Sliding = true;
+        }
+        
         Debug.Log("ENTRO");
 
     }
     void OnTriggerExit2D(Collider2D collider)
     {
-        collider.GetComponent<PlayerController>().enableMove = true;
-        collider.GetComponent<PlayerController>().Sliding = false;
+        if (collider.gameObject.tag == "player")
+        {
+            collider.GetComponent<PlayerController>().enableMove = true;
+            collider.GetComponent<PlayerController>().Sliding = false;
+        }
         Debug.Log("ESCO");
 
     }
