@@ -36,7 +36,7 @@ public class EnemiesScript : MonoBehaviour
                 break;
             case "Player":
 
-                SceneManager.LoadScene("Liv1_Test");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
              
                 break;
             default:

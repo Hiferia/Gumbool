@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1251577013401955460}
   - component: {fileID: 2331265187463380281}
   - component: {fileID: 9022015556460681847}
+  - component: {fileID: 9069451653416698638}
   m_Layer: 0
   m_Name: Bush
   m_TagString: Enviroment
@@ -121,3 +122,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &9069451653416698638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6094236320440489419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e64afa28feb676d459685870a68b550a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBeDeleted: 1
