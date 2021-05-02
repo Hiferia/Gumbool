@@ -336,7 +336,7 @@ public class TestCollider : MonoBehaviour
                         collider.points = arrayPos;
                         //collider.edgeRadius = 0.15f;
                         parentObj.AddComponent<Rigidbody2D>();
-                        parentObj.GetComponent<Rigidbody2D>().gravityScale = -2;
+                        parentObj.GetComponent<Rigidbody2D>().gravityScale = -1;
                         parentObj.GetComponent<Rigidbody2D>().mass = mass;
                         OggettoCheSiCrea.transform.parent = parentObj.transform;
                         count = 0;
