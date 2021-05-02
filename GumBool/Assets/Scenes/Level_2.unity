@@ -10509,6 +10509,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1245543974355012097, guid: 6440153f3ae27984a94a747bbe0392f1, type: 3}
+      propertyPath: m_text
+      value: Level 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7092101918317661889, guid: 6440153f3ae27984a94a747bbe0392f1, type: 3}
       propertyPath: m_FillAmount
       value: 1
