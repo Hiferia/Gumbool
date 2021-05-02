@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIInkMng : MonoBehaviour
 {
@@ -22,7 +23,13 @@ public class UIInkMng : MonoBehaviour
         OnDraw.AddListener(OnDrawCallBack);
         OnRecharge.AddListener(OnRechargeCallBack);
         OnActiveInk.AddListener(OnActiveInkCallBack);
-       
+        if (SceneManager.GetActiveScene().name == "Tutorial#1")
+        {
+            for (int i = 0; i < InkContainers.Count; i++)
+            {
+                InkContainers[i].fillAmount = 0;
+            }
+        }
     }
     //private void Start()
     //{
@@ -37,19 +44,31 @@ public class UIInkMng : MonoBehaviour
         {
             case "BlackPencil":
                 InkContainers[0].fillAmount = 1;
-                ShowTutorial(0);
+                if(SceneManager.GetActiveScene().name == "Tutorial#1")
+                {
+                    ShowTutorial(0);
+                }
                 break;
             case "BrownPencil":
                 InkContainers[1].fillAmount = 1;
-                ShowTutorial(1);
+                if (SceneManager.GetActiveScene().name == "Tutorial#1")
+                {
+                    ShowTutorial(1);
+                }
                 break;
             case "CyanPencil":
                 InkContainers[2].fillAmount = 1;
-                ShowTutorial(2);
+                if (SceneManager.GetActiveScene().name == "Tutorial#1")
+                {
+                    ShowTutorial(2);
+                }
                 break;
             case "OrangePencil":
                 InkContainers[3].fillAmount = 1;
-                ShowTutorial(3);
+                if (SceneManager.GetActiveScene().name == "Tutorial#1")
+                {
+                    ShowTutorial(3);
+                }
                 break;
             default:
                 break;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Inchiostri { Black, Brown, Cyan, Orange, Last };
 
@@ -41,10 +42,21 @@ public class TestCollider : MonoBehaviour
     void Start()
     {
         PositionSaved = new List<Vector2>();
-        Black = 0;
-        Brown = 0;
-        Cyan = 0;
-        Orange = 0;
+        if (SceneManager.GetActiveScene().name == "Tutorial#1")
+        {
+            Black = 0;
+            Brown = 0;
+            Cyan = 0;
+            Orange = 0;
+        }
+        else
+        {
+            Black = 100;
+            Brown = 100;
+            Cyan = 100;
+            Orange = 100;
+        }
+      
         UIInkMng.OnRecharge.AddListener(OnRechargeInkAmount);
         UIInkMng.OnActiveInk.AddListener(OnActiveInkCallBack);
     }
