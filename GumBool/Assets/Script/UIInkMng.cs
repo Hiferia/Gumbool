@@ -12,6 +12,7 @@ public class UIInkMng : MonoBehaviour
     public static UnityEvent<string> OnActiveInk;
     public List<GameObject> InkSelectedFrames;
     public List<Image> InkContainers;
+    public List<Transform> Tutorials;
     void OnEnable(){
         OnChangeInk = new UnityEvent<Inchiostri>();
         OnDraw = new UnityEvent<Inchiostri, float>();
@@ -36,15 +37,19 @@ public class UIInkMng : MonoBehaviour
         {
             case "BlackPencil":
                 InkContainers[0].fillAmount = 1;
+                ShowTutorial(0);
                 break;
             case "BrownPencil":
                 InkContainers[1].fillAmount = 1;
+                ShowTutorial(1);
                 break;
             case "CyanPencil":
                 InkContainers[2].fillAmount = 1;
+                ShowTutorial(2);
                 break;
             case "OrangePencil":
                 InkContainers[3].fillAmount = 1;
+                ShowTutorial(3);
                 break;
             default:
                 break;
@@ -113,6 +118,11 @@ public class UIInkMng : MonoBehaviour
             default:
                 break;
         }
+    }
+    void ShowTutorial(int index)
+    {
+        Tutorials[index].GetComponent<TutorialFadeOut>().Timer = 0;
+        Tutorials[index].gameObject.SetActive(true);
     }
 
 }
