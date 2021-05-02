@@ -38,18 +38,24 @@ public class OrangeInkScript : MonoBehaviour
                 }
                 break;
             case "CyanInk":
-                if (transform.parent.GetComponent<Rigidbody2D>().mass > collider.transform.GetComponent<Rigidbody2D>().mass * 0.5f)
+                if (collider.transform.GetComponent<UnderWaterLogic>().canBeDeleted)
                 {
-                    UIInkMng.OnRecharge.Invoke(Inchiostri.Cyan, collider.transform.GetComponent<Rigidbody2D>().mass * 0.5f);
-                    Destroy(collider.gameObject);
-                    Destroy(transform.gameObject);
+                    if (transform.parent.GetComponent<Rigidbody2D>().mass > collider.transform.GetComponent<Rigidbody2D>().mass * 0.5f)
+                    {
+                        UIInkMng.OnRecharge.Invoke(Inchiostri.Cyan, collider.transform.GetComponent<Rigidbody2D>().mass * 0.5f);
+                        Destroy(collider.gameObject);
+                        Destroy(transform.gameObject);
+                    }
                 }
                 break;
             case "Enviroment":
-                if (transform.parent.GetComponent<Rigidbody2D>().mass > collider.transform.GetComponent<Rigidbody2D>().mass * 0.5f)
+                if (collider.transform.GetComponent<UnderWaterLogic>().canBeDeleted)
                 {
-                    Destroy(collider.gameObject);
-                    Destroy(transform.gameObject);
+                    if (transform.parent.GetComponent<Rigidbody2D>().mass > collider.transform.GetComponent<Rigidbody2D>().mass * 0.5f)
+                    {
+                        Destroy(collider.gameObject);
+                        Destroy(transform.gameObject);
+                    }
                 }
                 break;
             default:
