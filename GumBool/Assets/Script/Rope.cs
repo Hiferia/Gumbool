@@ -205,14 +205,11 @@ public class Rope : MonoBehaviour
 
             if (collision.transform.gameObject.GetComponent<BoxCollider2D>() != null)
             {
-                Debug.Log("A");
                 collision.transform.position = box.offset;
                 rigidbody = collision.transform.GetComponent<Rigidbody2D>();
             }
             else
             {
-                Debug.Log("B");
-
                 collision.transform.parent.position = box.offset;
                 rigidbody = collision.transform.parent.GetComponent<Rigidbody2D>();
             }

@@ -19,6 +19,6 @@ public class Level2ToMenu : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        SceneManager.LoadScene("Menù");
+        SceneManager.LoadScene("Menu");
     }
 }
