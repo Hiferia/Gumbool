@@ -89,7 +89,7 @@ public class Rope : MonoBehaviour
             Vector2 velocity = firstSegment.posNow - firstSegment.posOld;
             firstSegment.posOld = firstSegment.posNow;
             firstSegment.posNow += velocity * strenght;
-            if(velocity.x == 0 && strenght > 0)
+            if (velocity.x == 0 && strenght > 0)
             {
                 velocity.x += 10f;
                 velocity.y += 10f;
@@ -173,40 +173,66 @@ public class Rope : MonoBehaviour
             PlayerController controller = collision.GetComponent<PlayerController>();
             //if (!controller.IsGrounded)
             //{
-                Animator anim = collision.GetComponent<Animator>();
-                Rigidbody2D rigidbody = collision.GetComponent<Rigidbody2D>();
-                if (Input.GetKey(KeyCode.E) && !EPressed)
-                {
-                    controller.enableMove = true;
-                    rigidbody.gravityScale = 1;
-                    //Debug.Log(Velocity.normalized * JumpForce);
-                    Debug.Log(rigidbody.velocity);
-                    //rigidbody.AddForce(Velocity.normalized * JumpForce);
-                    rigidbody.velocity = new Vector2(Velocity.normalized.x * JumpForce, Velocity.normalized.y * JumpForce);
-                    Debug.Log(rigidbody.velocity);
+            Animator anim = collision.GetComponent<Animator>();
+            Rigidbody2D rigidbody = collision.GetComponent<Rigidbody2D>();
+            if (Input.GetKey(KeyCode.E) && !EPressed)
+            {
+                controller.enableMove = true;
+                rigidbody.gravityScale = 1;
+                //Debug.Log(Velocity.normalized * JumpForce);
+                Debug.Log(rigidbody.velocity);
+                //rigidbody.AddForce(Velocity.normalized * JumpForce);
+                rigidbody.velocity = new Vector2(Velocity.normalized.x * JumpForce, Velocity.normalized.y * JumpForce);
+                Debug.Log(rigidbody.velocity);
 
-                    anim.SetFloat("speed", 0);
-                    anim.SetTrigger("jump");
-                    EPressed = true;
-                }
-                else if (!Input.GetKey(KeyCode.E))
-                {
-                    EPressed = false;
-                    collision.transform.position = box.offset;
-                    anim.SetFloat("speed", 1);
-                    rigidbody.gravityScale = 0;
-                    controller.enableMove = false;
-                }
+                anim.SetFloat("speed", 0);
+                anim.SetTrigger("jump");
+                EPressed = true;
+            }
+            else if (!Input.GetKey(KeyCode.E))
+            {
+                EPressed = false;
+                collision.transform.position = box.offset;
+                anim.SetFloat("speed", 1);
+                rigidbody.gravityScale = 0;
+                controller.enableMove = false;
+            }
             //}
         }
-        else if(collision.tag == "BlackInk")
+        else if (collision.tag == "BlackInk")
         {
-            Rigidbody2D rigidbody = collision.transform.parent.GetComponent<Rigidbody2D>();
+            Rigidbody2D rigidbody;
 
-            collision.transform.parent.position = box.offset;
+            if (collision.transform.gameObject.GetComponent<BoxCollider2D>() != null)
+            {
+                Debug.Log("A");
+                collision.transform.position = box.offset;
+                rigidbody = collision.transform.GetComponent<Rigidbody2D>();
+            }
+            else
+            {
+                Debug.Log("B");
+
+                collision.transform.parent.position = box.offset;
+                rigidbody = collision.transform.parent.GetComponent<Rigidbody2D>();
+            }
             rigidbody.gravityScale = 0;
         }
         Debug.DrawLine(box.offset, box.offset + (Velocity.normalized * JumpForce), Color.yellow);
     }
-    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "BlackInk")
+        {
+            if (collision.transform.gameObject.GetComponent<BoxCollider2D>() != null)
+            {
+
+            }
+            else if (collision.transform.parent.gameObject.GetComponent<BoxCollider2D>() == null)
+            {
+                BoxCollider2D boxColl = collision.transform.parent.gameObject.AddComponent<BoxCollider2D>();
+            }
+        }
+    }
+
 }
