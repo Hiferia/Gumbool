@@ -76,7 +76,7 @@ public class UIInkMng : MonoBehaviour
     }
     void OnRechargeCallBack(Inchiostri ink, float amount)
     {
-        amount = MathUtils.Remap(amount, 0, 100, 0, 1);
+        amount = MathUtils.Remap(amount, 0, 60, 0, 1);
         switch (ink)
         {
             case Inchiostri.Black:
@@ -96,7 +96,7 @@ public class UIInkMng : MonoBehaviour
         }
     }
     void OnDrawCallBack(Inchiostri ink, float amount){
-        amount = MathUtils.Remap(amount, 0, 100, 0, 1);
+        amount = MathUtils.Remap(amount, 0, 60, 0, 1);
         switch (ink)
         {
             case Inchiostri.Black:

@@ -52,9 +52,10 @@ MonoBehaviour:
   Cyan: 0
   Orange: 0
   BlackMul: 1
-  BrownMul: 1
+  BrownMul: 2
   CyanMul: 1
   OrangeMul: 1
   massMul: 1
   ScrollFactor: 0
   Player: {fileID: 0}
+  Distance: 0
