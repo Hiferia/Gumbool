@@ -57,6 +57,10 @@ public class OrangeInkScript : MonoBehaviour
                         Destroy(transform.gameObject);
                     }
                 }
+                else
+                {
+                    Destroy(transform.gameObject);
+                }
                 break;
             default:
                 Destroy(transform.gameObject);
