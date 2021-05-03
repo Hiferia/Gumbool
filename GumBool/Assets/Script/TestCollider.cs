@@ -404,6 +404,10 @@ public class TestCollider : MonoBehaviour
                 PositionSaved.Clear();
             }
         }
+        if (!isPressing)
+        {
+            PositionSaved.Clear();
+        }
 
 
     }

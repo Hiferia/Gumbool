@@ -4991,9 +4991,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6118934345200426759, guid: 7b70327953003924e905a1ad300f91f4, type: 3}
+      propertyPath: Delay
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6118934345200426759, guid: 7b70327953003924e905a1ad300f91f4, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 585240505}
+    - target: {fileID: 6118934345200426759, guid: 7b70327953003924e905a1ad300f91f4, type: 3}
+      propertyPath: Distance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6118934345200426760, guid: 7b70327953003924e905a1ad300f91f4, type: 3}
       propertyPath: m_Name
       value: Mng
