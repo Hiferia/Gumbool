@@ -5,20 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class Level2ToMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        SceneManager.LoadScene("Menu");
+        if (collision.transform.tag == "player")
+        {
+            SceneManager.LoadScene("Menu");
+        }
     }
 }
