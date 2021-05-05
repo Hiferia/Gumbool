@@ -843,6 +843,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 879063980}
   m_CullTransparentMesh: 1
+--- !u!1 &936727248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 936727250}
+  - component: {fileID: 936727249}
+  m_Layer: 0
+  m_Name: RopeScript
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &936727249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936727248}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d5f71daa6b29b4baa9232026c5ebff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mass: 0
+  PositionSaved: []
+  ropePositions: []
+  segmentLength: 0
+  Player: {fileID: 0}
+  boxX: 0
+  boxY: 0
+  Velocity: {x: 0, y: 0}
+  JumpForce: 0
+--- !u!4 &936727250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936727248}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.586996, y: 0.13409758, z: 11.54905}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1071046977
 GameObject:
   m_ObjectHideFlags: 0
@@ -1395,17 +1447,40 @@ MonoBehaviour:
   Player: {fileID: 1855435194}
   Colors:
   - Name: Black
-    Color: {r: 0, g: 0, b: 0, a: 0}
-    TotalInk: 0
-    InkUsageMultiplayer: 0
+    Color: {r: 0, g: 0, b: 0, a: 1}
+    TotalInk: 100
+    InkUsageMultiplayer: 1
+    MassMultiplayer: 1
+    GravityScale: 1
+    Tag: BlackInk
+    HasRigidBody: 1
+    HasCollider: 1
+    HasScript: 0
+    scripts: []
+  - Name: Brown
+    Color: {r: 0.3584906, g: 0.16559276, b: 0, a: 1}
+    TotalInk: 100
+    InkUsageMultiplayer: 1
     MassMultiplayer: 0
     GravityScale: 0
-    Tag: 
+    Tag: BrownInk
     HasRigidBody: 0
     HasCollider: 0
-    HasScript: 0
+    HasScript: 1
     scripts:
-    - ScriptName: 
+    - ScriptName: Rope
+      Script: {fileID: 936727249}
+  - Name: Cyan
+    Color: {r: 0, g: 0.96580887, b: 1, a: 1}
+    TotalInk: 100
+    InkUsageMultiplayer: 1
+    MassMultiplayer: 1
+    GravityScale: -1
+    Tag: CyanInk
+    HasRigidBody: 1
+    HasCollider: 1
+    HasScript: 0
+    scripts: []
   ActualInk: 0
 --- !u!1 &1576798606
 GameObject:
