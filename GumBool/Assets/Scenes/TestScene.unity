@@ -601,6 +601,7 @@ MonoBehaviour:
   - {fileID: 811274671}
   - {fileID: 1253787589}
   - {fileID: 1576798608}
+  Tutorials: []
 --- !u!4 &601594257
 Transform:
   m_ObjectHideFlags: 0
@@ -1308,6 +1309,7 @@ GameObject:
   - component: {fileID: 1400065690}
   - component: {fileID: 1400065689}
   - component: {fileID: 1400065691}
+  - component: {fileID: 1400065692}
   m_Layer: 0
   m_Name: test
   m_TagString: Untagged
@@ -1353,7 +1355,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1400065688}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e751d9c1459fe6c40adaa8997ed11831, type: 3}
   m_Name: 
@@ -1373,6 +1375,38 @@ MonoBehaviour:
   massMul: 1
   ScrollFactor: 3
   Player: {fileID: 1855435194}
+  Distance: 0
+--- !u!114 &1400065692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400065688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e77dfab0d33aa44483d1232362cdbec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultMatLine: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  Delay: 0.01
+  ScrollFactor: 0
+  Distance: 10
+  Player: {fileID: 1855435194}
+  Colors:
+  - Name: Black
+    Color: {r: 0, g: 0, b: 0, a: 0}
+    TotalInk: 0
+    InkUsageMultiplayer: 0
+    MassMultiplayer: 0
+    GravityScale: 0
+    Tag: 
+    HasRigidBody: 0
+    HasCollider: 0
+    HasScript: 0
+    scripts:
+    - ScriptName: 
+  ActualInk: 0
 --- !u!1 &1576798606
 GameObject:
   m_ObjectHideFlags: 0

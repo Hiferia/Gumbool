@@ -20,6 +20,8 @@ public class Rope : MonoBehaviour
 
     public float Mass;
 
+    public List<Vector2> PositionSaved;
+
     private LineRenderer lineRenderer;
     public List<RopeSegment> ropeSegments = new List<RopeSegment>();
     public Vector3[] ropePositions;
@@ -53,6 +55,21 @@ public class Rope : MonoBehaviour
             this.ropeSegments.Add(new RopeSegment(ropeStartPoint));
             ropeStartPoint.y -= ropeSegLen;
         }*/
+    }
+
+    public void Init()
+    {
+        Vector3[] arrayPos = new Vector3[PositionSaved.Count];
+        List<RopeSegment> ropeSegments = new List<RopeSegment>();
+
+        for (int i = 0; i < arrayPos.Length; i++)
+        {
+            arrayPos[i] = PositionSaved[i];
+            ropeSegments.Add(new RopeSegment(PositionSaved[i]));
+        }
+        ropePositions = arrayPos;
+        segmentLength = arrayPos.Length;
+        ropeSegments = ropeSegments;
     }
 
     // Update is called once per frame
