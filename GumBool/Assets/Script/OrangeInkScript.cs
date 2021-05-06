@@ -4,15 +4,33 @@ using UnityEngine;
 
 public class OrangeInkScript : MonoBehaviour
 {
-    
+
     void OnCollisionEnter2D(Collision2D collider)
     {
-        Debug.Log("COLLISIONE");
+        //Debug.Log("COLLISIONE");
         //Verifica cosa collide (inchiostri, oggetti ecc)
         //usiamo i tag
-        switch (collider.transform.tag)
+
+        UnderWaterLogic underWaterLogic = collider.transform.GetComponent<UnderWaterLogic>();
+
+        if (underWaterLogic != null)
         {
-            
+            if (underWaterLogic.canBeDeleted)
+            {
+                if (transform.parent.GetComponent<Rigidbody2D>().mass > collider.transform.GetComponent<Rigidbody2D>().mass * 0.5f)
+                {
+                    UIInkMng.OnRecharge.Invoke(collider.transform.tag, collider.transform.GetComponent<Rigidbody2D>().mass * 0.5f);
+                    Destroy(collider.gameObject);
+                    Destroy(transform.gameObject);
+                    return;
+                }
+            }
+            Destroy(transform.gameObject);
+        }
+
+        /*switch (collider.transform.tag)
+        {
+
             case "BlackInk":
                 if (collider.transform.GetComponent<UnderWaterLogic>().canBeDeleted)
                 {
@@ -65,6 +83,6 @@ public class OrangeInkScript : MonoBehaviour
             default:
                 Destroy(transform.gameObject);
                 break;
-        }
+        }*/
     }
 }

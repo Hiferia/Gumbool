@@ -20,8 +20,6 @@ public class Rope : MonoBehaviour
 
     public float Mass;
 
-    public List<Vector2> PositionSaved;
-
     private LineRenderer lineRenderer;
     public List<RopeSegment> ropeSegments = new List<RopeSegment>();
     public Vector3[] ropePositions;
@@ -35,7 +33,14 @@ public class Rope : MonoBehaviour
     private float lineWidth = 0.3f;
     BoxCollider2D box;
 
+    bool initialized = false;
+
     // Use this for initialization
+    private void OnEnable()
+    {
+        EventVariableMng.OnSendingPositions.AddListener(OnRecivingPositions);
+    }
+
     void Start()
     {
         JumpForce = 5f;
@@ -57,19 +62,24 @@ public class Rope : MonoBehaviour
         }*/
     }
 
-    public void Init()
+    private void OnRecivingPositions(List<Vector2> positions,GameObject player)
     {
-        Vector3[] arrayPos = new Vector3[PositionSaved.Count];
-        List<RopeSegment> ropeSegments = new List<RopeSegment>();
-
-        for (int i = 0; i < arrayPos.Length; i++)
+        if (!initialized)
         {
-            arrayPos[i] = PositionSaved[i];
-            ropeSegments.Add(new RopeSegment(PositionSaved[i]));
+            Player = player;
+            Vector3[] arrayPos = new Vector3[positions.Count];
+            //List<RopeSegment> ropeSegments = new List<RopeSegment>();
+
+            for (int i = 0; i < arrayPos.Length; i++)
+            {
+                arrayPos[i] = positions[i];
+                ropeSegments.Add(new RopeSegment(positions[i]));
+            }
+            ropePositions = arrayPos;
+            segmentLength = arrayPos.Length;
+
+            initialized = true;
         }
-        ropePositions = arrayPos;
-        segmentLength = arrayPos.Length;
-        ropeSegments = ropeSegments;
     }
 
     // Update is called once per frame

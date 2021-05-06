@@ -14,6 +14,7 @@ TagManager:
   - BlackPencil
   - BrownPencil
   - CyanPencil
+  - OrangeInk
   layers:
   - Default
   - TransparentFX

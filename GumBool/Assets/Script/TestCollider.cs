@@ -59,7 +59,7 @@ public class TestCollider : MonoBehaviour
             Orange = 60;
         }
 
-        UIInkMng.OnRecharge.AddListener(OnRechargeInkAmount);
+        //UIInkMng.OnRecharge.AddListener(OnRechargeInkAmount);
         UIInkMng.OnActiveInk.AddListener(OnActiveInkCallBack);
     }
     void OnActiveInkCallBack(string pencilInk)
@@ -125,7 +125,7 @@ public class TestCollider : MonoBehaviour
             }
         }
 
-        switch (inchiostro)
+        /*switch (inchiostro)
         {
             case Inchiostri.Black:
                 UIInkMng.OnChangeInk.Invoke(Inchiostri.Black);
@@ -145,7 +145,7 @@ public class TestCollider : MonoBehaviour
                 break;
             default:
                 break;
-        }
+        }*/
 
         //Debug.Log(Input.mousePosition);
         if (Input.GetKeyDown(KeyCode.Mouse0) && currentInk > 0)
@@ -221,7 +221,7 @@ public class TestCollider : MonoBehaviour
                         media.x += PositionSaved[PositionSaved.Count - 1].x;
                         media.y += PositionSaved[PositionSaved.Count - 1].y;
 
-                        switch (inchiostro)
+                        /*switch (inchiostro)
                         {
                             case Inchiostri.Black:
                                 Black -= distance * BlackMul;
@@ -245,7 +245,7 @@ public class TestCollider : MonoBehaviour
                                 break;
                             default:
                                 break;
-                        }
+                        }*/
 
                         mass += distance * massMul;
 

@@ -7,22 +7,29 @@ using UnityEngine.SceneManagement;
 
 public class UIInkMng : MonoBehaviour
 {
-    public static UnityEvent<Inchiostri> OnChangeInk;
-    public static UnityEvent<Inchiostri, float> OnDraw;
-    public static UnityEvent<Inchiostri, float> OnRecharge;
+    public static UnityEvent<int> OnChangeInk;
+    public static UnityEvent<string, float> OnDraw;
+    public static UnityEvent<string, float> OnRecharge;
     public static UnityEvent<string> OnActiveInk;
+    public static UnityEvent<Dictionary<string, int>> OnDictionaryInit;
     public List<GameObject> InkSelectedFrames;
     public List<Image> InkContainers;
     public List<Transform> Tutorials;
-    void OnEnable(){
-        OnChangeInk = new UnityEvent<Inchiostri>();
-        OnDraw = new UnityEvent<Inchiostri, float>();
-        OnRecharge = new UnityEvent<Inchiostri, float>();
+
+    Dictionary<string, int> tagDictionary = new Dictionary<string, int>();
+
+    void OnEnable()
+    {
+        OnChangeInk = new UnityEvent<int>();
+        OnDraw = new UnityEvent<string, float>();
+        OnRecharge = new UnityEvent<string, float>();
         OnActiveInk = new UnityEvent<string>();
+        OnDictionaryInit = new UnityEvent<Dictionary<string, int>>();
         OnChangeInk.AddListener(OnChangeInkCallBack);
         OnDraw.AddListener(OnDrawCallBack);
         OnRecharge.AddListener(OnRechargeCallBack);
         OnActiveInk.AddListener(OnActiveInkCallBack);
+        OnDictionaryInit.AddListener(OnDictionaryInitCallback);
         if (SceneManager.GetActiveScene().name == "Tutorial#1")
         {
             for (int i = 0; i < InkContainers.Count; i++)
@@ -38,9 +45,23 @@ public class UIInkMng : MonoBehaviour
     //        InkContainers[i].color -= new Color(0, 0, 0, 0.5f);
     //    }
     //}
+
+    void OnDictionaryInitCallback(Dictionary<string, int> dict)
+    {
+        tagDictionary = dict;
+    }
+
     void OnActiveInkCallBack(string pencilInk)
     {
-        switch (pencilInk)
+        if (tagDictionary.TryGetValue(pencilInk, out int i))
+        {
+            InkContainers[i].fillAmount = 1;
+            if (SceneManager.GetActiveScene().name == "Tutorial#1")
+            {
+                ShowTutorial(i);
+            }
+        }
+        /*switch (pencilInk)
         {
             case "BlackPencil":
                 InkContainers[0].fillAmount = 1;
@@ -72,12 +93,16 @@ public class UIInkMng : MonoBehaviour
                 break;
             default:
                 break;
-        }
+        }*/
     }
-    void OnRechargeCallBack(Inchiostri ink, float amount)
+    void OnRechargeCallBack(string tag, float amount)
     {
-        amount = MathUtils.Remap(amount, 0, 60, 0, 1);
-        switch (ink)
+        amount = MathUtils.Remap(amount, 0, 100, 0, 1);
+        if (tagDictionary.TryGetValue(tag, out int i))
+        {
+            InkContainers[i].fillAmount += amount;
+        }
+        /*switch (ink)
         {
             case Inchiostri.Black:
                 InkContainers[0].fillAmount += amount;
@@ -93,11 +118,16 @@ public class UIInkMng : MonoBehaviour
                 break;
             default:
                 break;
-        }
+        }*/
     }
-    void OnDrawCallBack(Inchiostri ink, float amount){
-        amount = MathUtils.Remap(amount, 0, 60, 0, 1);
-        switch (ink)
+    void OnDrawCallBack(string tag, float amount)
+    {
+        amount = MathUtils.Remap(amount, 0, 100, 0, 1);
+        if (tagDictionary.TryGetValue(tag, out int i))
+        {
+            InkContainers[i].fillAmount = amount;
+        }
+        /*switch (ink)
         {
             case Inchiostri.Black:
                 InkContainers[0].fillAmount = amount;
@@ -113,14 +143,16 @@ public class UIInkMng : MonoBehaviour
                 break;
             default:
                 break;
-        }
+        }*/
     }
-    void OnChangeInkCallBack(Inchiostri ink){
+    void OnChangeInkCallBack(int n)
+    {
         for (int i = 0; i < InkSelectedFrames.Count; i++)
         {
-                InkSelectedFrames[i].SetActive(false);
+            InkSelectedFrames[i].SetActive(false);
         }
-        switch (ink)
+        InkSelectedFrames[n].SetActive(true);
+        /*switch (ink)
         {
             case Inchiostri.Black:
                 InkSelectedFrames[0].SetActive(true);
@@ -136,7 +168,7 @@ public class UIInkMng : MonoBehaviour
                 break;
             default:
                 break;
-        }
+        }*/
     }
     void ShowTutorial(int index)
     {

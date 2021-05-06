@@ -588,6 +588,82 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &183067808 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6118934345200426760, guid: 7b70327953003924e905a1ad300f91f4, type: 3}
+  m_PrefabInstance: {fileID: 1233946051}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &183067809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183067808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e77dfab0d33aa44483d1232362cdbec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultMatLine: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  Delay: 0.01
+  ScrollFactor: 1
+  Distance: 10
+  Player: {fileID: 1835820712}
+  Colors:
+  - Name: Black
+    Color: {r: 0, g: 0, b: 0, a: 1}
+    TotalInk: 100
+    actualInk: 0
+    InkUsageMultiplayer: 1
+    MassMultiplayer: 1
+    GravityScale: 1
+    Tag: BlackInk
+    HasRigidBody: 1
+    HasCollider: 1
+    HasScript: 0
+    scripts: []
+  - Name: Brown
+    Color: {r: 0.26415092, g: 0.1412174, b: 0, a: 1}
+    TotalInk: 100
+    actualInk: 0
+    InkUsageMultiplayer: 1
+    MassMultiplayer: 0
+    GravityScale: 0
+    Tag: BrownInk
+    HasRigidBody: 0
+    HasCollider: 0
+    HasScript: 1
+    scripts:
+    - ScriptName: 
+      Script: {fileID: 1429985737}
+  - Name: Cyan
+    Color: {r: 0, g: 1, b: 1, a: 1}
+    TotalInk: 100
+    actualInk: 0
+    InkUsageMultiplayer: 1
+    MassMultiplayer: 1
+    GravityScale: -1
+    Tag: CyanInk
+    HasRigidBody: 1
+    HasCollider: 1
+    HasScript: 0
+    scripts: []
+  - Name: Orange
+    Color: {r: 1, g: 0.5881125, b: 0, a: 1}
+    TotalInk: 100
+    actualInk: 0
+    InkUsageMultiplayer: 1
+    MassMultiplayer: 1
+    GravityScale: 0
+    Tag: OrangeInk
+    HasRigidBody: 1
+    HasCollider: 1
+    HasScript: 1
+    scripts:
+    - ScriptName: Ornage Ink
+      Script: {fileID: 1429985739}
+  ActualInk: 0
 --- !u!4 &250431962 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9127773002236729506, guid: 252351cf7a8110e4b8355d1eecad5ea6, type: 3}
@@ -4536,6 +4612,10 @@ PrefabInstance:
       propertyPath: Distance
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6118934345200426759, guid: 7b70327953003924e905a1ad300f91f4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6118934345200426760, guid: 7b70327953003924e905a1ad300f91f4, type: 3}
       propertyPath: m_Name
       value: Mng
@@ -4921,6 +5001,83 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7179801143037146066, guid: 1d86737466c7fce428e58a53c402c594, type: 3}
   m_PrefabInstance: {fileID: 268771372}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1429985736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1429985740}
+  - component: {fileID: 1429985739}
+  - component: {fileID: 1429985738}
+  - component: {fileID: 1429985737}
+  m_Layer: 0
+  m_Name: Scripts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1429985737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429985736}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d5f71daa6b29b4baa9232026c5ebff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mass: 0
+  ropePositions: []
+  segmentLength: 0
+  Player: {fileID: 0}
+  boxX: 0
+  boxY: 0
+  Velocity: {x: 0, y: 0}
+  JumpForce: 0
+--- !u!114 &1429985738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429985736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a935dc29bf9ee624aa9c5d611f5cdf8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1429985739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429985736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e623c994b63695a4ba4777ca24055863, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1429985740
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429985736}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.586996, y: 0.13409758, z: 11.54905}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1449742896
 GameObject:
   m_ObjectHideFlags: 0

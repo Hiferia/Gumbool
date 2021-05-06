@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 
 [System.Serializable]
@@ -10,6 +11,10 @@ public struct ColorType
     public string Name;
     public Color Color;
     public float TotalInk;
+
+    public float ActualInk { get { return actualInk; } set { actualInk = value; } }
+    public float actualInk;
+
     public float InkUsageMultiplayer;
     public float MassMultiplayer;
     public float GravityScale;
@@ -61,6 +66,8 @@ public class ColorMng : MonoBehaviour
 
     LineRenderer line;
 
+    Dictionary<string, int> tagDictionary = new Dictionary<string, int>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -80,11 +87,23 @@ public class ColorMng : MonoBehaviour
             Orange = 60;
         }*/
 
+        for (int i = 0; i < Colors.Length; i++)
+        {
+            Colors[i].ActualInk = Colors[i].TotalInk;
+            tagDictionary.Add(Colors[i].Tag, i);
+        }
+
+        UIInkMng.OnDictionaryInit.Invoke(tagDictionary);
+
         UIInkMng.OnRecharge.AddListener(OnRechargeInkAmount);
         UIInkMng.OnActiveInk.AddListener(OnActiveInkCallBack);
     }
     void OnActiveInkCallBack(string pencilInk)
     {
+        if (tagDictionary.TryGetValue(pencilInk, out int i))
+        {
+            Colors[i].ActualInk = Colors[i].TotalInk;
+        }
         /*switch (pencilInk)
         {
             case "BlackPencil":
@@ -103,8 +122,12 @@ public class ColorMng : MonoBehaviour
                 break;
         }*/
     }
-    void OnRechargeInkAmount(Inchiostri ink, float amount)
+    void OnRechargeInkAmount(string tag, float amount)
     {
+        if (tagDictionary.TryGetValue(tag, out int i))
+        {
+            Colors[i].ActualInk += amount;
+        }
         /*switch (ink)
         {
             case Inchiostri.Black:
@@ -129,21 +152,23 @@ public class ColorMng : MonoBehaviour
         scroll += Input.mouseScrollDelta.y;
         if (scroll < -ScrollFactor)
         {
-            ActualInk -= 1;
-            scroll = 0;
-            if (ActualInk < 0)
-            {
-                ActualInk = Colors.Length;
-            }
-        }
-        if (scroll > ScrollFactor)
-        {
             ActualInk += 1;
             scroll = 0;
             if (ActualInk == Colors.Length)
             {
                 ActualInk = 0;
             }
+            UIInkMng.OnChangeInk.Invoke(ActualInk);
+        }
+        if (scroll > ScrollFactor)
+        {
+            ActualInk -= 1;
+            scroll = 0;
+            if (ActualInk < 0)
+            {
+                ActualInk = Colors.Length - 1;
+            }
+            UIInkMng.OnChangeInk.Invoke(ActualInk);
         }
 
         /*switch (inchiostro)
@@ -169,7 +194,7 @@ public class ColorMng : MonoBehaviour
         }*/
 
         //Debug.Log(Input.mousePosition);
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Colors[ActualInk].TotalInk > 0)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Colors[ActualInk].ActualInk > 0)
         {
             isPressing = true;
 
@@ -212,7 +237,7 @@ public class ColorMng : MonoBehaviour
                 line.endColor = orange;
             }*/
         }
-        if (Input.GetKey(KeyCode.Mouse0) && Colors[ActualInk].TotalInk > 0)
+        if (Input.GetKey(KeyCode.Mouse0) && Colors[ActualInk].ActualInk > 0)
         {
             //mi salvo i punti mentre disegno -> (se finisco inchiostro smetto di salvare i punti)
             counter += Time.deltaTime;
@@ -270,8 +295,8 @@ public class ColorMng : MonoBehaviour
                             default:
                                 break;
                         }*/
-
-                        Colors[ActualInk].TotalInk -= distance * Colors[ActualInk].InkUsageMultiplayer;
+                        Colors[ActualInk].ActualInk -= distance * Colors[ActualInk].InkUsageMultiplayer;
+                        UIInkMng.OnDraw.Invoke(Colors[ActualInk].Tag, Colors[ActualInk].ActualInk);
                         //currentInk = Colors[ActualInk].TotalInk;
 
                         mass += distance * Colors[ActualInk].MassMultiplayer;
@@ -292,7 +317,7 @@ public class ColorMng : MonoBehaviour
 
         if (isPressing)
         {
-            if (Input.GetKeyUp(KeyCode.Mouse0) || Colors[ActualInk].TotalInk < 0 || Vector2.Distance(Camera.main.ScreenToWorldPoint(Input.mousePosition), Player.transform.position) > Distance)
+            if (Input.GetKeyUp(KeyCode.Mouse0) || Colors[ActualInk].ActualInk < 0 || Vector2.Distance(Camera.main.ScreenToWorldPoint(Input.mousePosition), Player.transform.position) > Distance)
             {
                 isPressing = false;
                 if (PositionSaved.Count > 2)
@@ -335,8 +360,9 @@ public class ColorMng : MonoBehaviour
                     {
                         for (int i = 0; i < Colors[ActualInk].scripts.Length; i++)
                         {
-                            gameObject.AddComponent(Colors[ActualInk].scripts[i].Script.GetType());
+                            OggettoCheSiCrea.AddComponent(Colors[ActualInk].scripts[i].Script.GetType());
                         }
+                        EventVariableMng.OnSendingPositions.Invoke(PositionSaved, Player);
                     }
                     /*if (inchiostro == Inchiostri.Black)
                     {
